@@ -28,6 +28,6 @@ module alu (
         result = a + b_twos;
       end
     endcase
-  end
+  end 
 
 endmodule

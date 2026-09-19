@@ -75,6 +75,6 @@ module tb;
     if (errors == 0) $write(" -- ALL PASS");
     $write("\n");
     $finish;
-  end
+  end 
 
 endmodule
