@@ -1,11 +1,21 @@
-// tb.v
-// Starter testbench template -- YOU complete this file.
-
 module tb;
 
-  // TODO: declare the inputs and outputs
+  // Test configuration: change these to test other sizes
+  localparam W = 8;
+  localparam D = 8;
 
-  // TODO: instantiate DUT here
+  reg  [$clog2(D)-1:0] t_sel;
+  wire [W-1:0]         t_dout;
+
+  reg  [W-1:0] exp;
+  integer      i;
+  integer      errors;
+
+  // Instance is named DUT so $dumpvars(0, DUT) below resolves.
+  lut #(.WIDTH(W), .DEPTH(D)) DUT (
+    .sel  (t_sel),
+    .dout (t_dout)
+  );
 
   // Waveform dump configuration (DO NOT CHANGE)
   string vcd_file;
@@ -17,11 +27,22 @@ module tb;
   end
 
   initial begin
-    // TODO: apply different input combinations
-
+    errors = 0;
+    for (i = 0; i < D; i = i + 1) begin
+      t_sel = i;
+      #5;
+      exp = i * i;
+      if (t_dout !== exp) begin
+        $display("FAIL at time %0t: sel=%0d got %0d expected %0d",
+                 $time, t_sel, t_dout, exp);
+        errors = errors + 1;
+      end
+    end
+    $display("%0d of %0d addresses passed", D - errors, D);
+    $finish;
   end
 
   initial
-    $monitor($time, " I0=%b I1=%b S=%b | Y=%b", t_i0, t_i1, t_s, t_y); // change as required
+    $monitor($time, " sel=%0d | dout=%0d", t_sel, t_dout);
 
 endmodule
