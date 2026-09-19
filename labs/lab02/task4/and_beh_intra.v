@@ -13,6 +13,6 @@ module and_beh_intra #(
 
   always @(*) begin
     y = #(DELAY) a & b;
-  end
+  end 
 
 endmodule

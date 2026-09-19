@@ -7,7 +7,7 @@ module and_df #(
 ) (
   input  a,
   input  b,
-  output y
+  output y 
 );
 
   assign #(DELAY) y = a & b;

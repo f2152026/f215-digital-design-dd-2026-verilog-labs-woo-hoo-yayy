@@ -14,6 +14,6 @@ module and_beh_before #(
 
   always @(*) begin
     #(DELAY) y = a & b;
-  end
+  end 
 
 endmodule
